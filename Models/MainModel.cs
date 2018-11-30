@@ -119,7 +119,67 @@ namespace Lab4.Models
                         byte newRGB = (byte)Median(arr);
                         wb.SetPixel(j, i, newRGB, newRGB, newRGB);
                     }
-                }
+                    else if (j + 1 < width && i - 1 > 0 && i + 1 < height)
+                    {
+                        var arr = new int[2 * 3]
+                        {
+                            wb.GetBrightness(j,i-1),
+                            wb.GetBrightness(j+1,i-1),
+                            wb.GetBrightness(j,i),
+                            wb.GetBrightness(j+1,i),
+                            wb.GetBrightness(j,i+1),
+                            wb.GetBrightness(j+1,i+1),
+                        };
+
+                        byte newRGB = (byte)Median(arr);
+                        wb.SetPixel(j, i, newRGB, newRGB, newRGB);
+                    }
+                    else if (j - 1 > 0 && i - 1 > 0 && i + 1 < height)
+                    {
+                        var arr = new int[2 * 3]
+                        {
+                            wb.GetBrightness(j-1,i-1),
+                            wb.GetBrightness(j,i-1),
+
+                            wb.GetBrightness(j-1,i),
+                            wb.GetBrightness(j,i),
+
+                            wb.GetBrightness(j-1,i+1),
+                            wb.GetBrightness(j,i+1),
+                        };
+
+                        byte newRGB = (byte)Median(arr);
+                        wb.SetPixel(j, i, newRGB, newRGB, newRGB);
+                    }
+                    else if(j + 1 < width && i + 1 < height)
+                    {
+                        var arr = new int[2 * 2]
+                        {
+                            wb.GetBrightness(j,i),
+                            wb.GetBrightness(j+1,i),
+
+                            wb.GetBrightness(j,i+1),
+                            wb.GetBrightness(j+1,i+1),
+                        };
+
+                        byte newRGB = (byte)Median(arr);
+                        wb.SetPixel(j, i, newRGB, newRGB, newRGB);
+                    }
+                    else if(j - 1 > 0 && i - 1 > 0 )
+                    {
+                        var arr = new int[2 * 2]
+                        {
+                            wb.GetBrightness(j-1,i-1),
+                            wb.GetBrightness(j,i-1),
+
+                            wb.GetBrightness(j-1,i),
+                            wb.GetBrightness(j,i),
+                        };
+
+                        byte newRGB = (byte)Median(arr);
+                        wb.SetPixel(j, i, newRGB, newRGB, newRGB);
+                    }
+                }                
             }
         }
         public static void ContourSelection(WriteableBitmap wb)
@@ -169,7 +229,7 @@ namespace Lab4.Models
                     newG = Check(newG + value, 0, 255);
                     newB = Check(newB + value, 0, 255);
 
-                    wb.SetPixel(j, i, Color.FromRgb((byte)newR, (byte)newG, (byte)newB));
+                    wb.SetPixel(j, i, (byte)newR, (byte)newG, (byte)newB);
                 }
             }
         }        
